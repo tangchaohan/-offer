@@ -1,0 +1,62 @@
+
+/**
+ * @author Tang
+ * 面试题3
+ */
+public class InterviewQuestion3
+{
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+	   int[][]testArray=new int[5][];
+        testArray[0]=new int[]{1,3,5,7,9};
+        testArray[1]=new int[]{5,10,15,20,25};
+        testArray[2]=new int[]{10,15,20,25,30};
+        testArray[3]=new int[]{20,30,40,50,60};
+        testArray[4]=new int[]{40,60,80,100,120};
+        boolean isFound=FindTheKey(testArray, 15);
+        boolean isFound2=FindTheKey(null, 10);
+        boolean isFound3=FindTheKey(testArray, 19);
+        System.out.println(isFound);
+        System.out.println(isFound2);
+        System.out.println(isFound3);
+	}
+	
+	/**
+	 * 在有序二维数组中查找某个值
+	 * @param inputArray 输入数组
+	 * @param key  要找的关键值
+	 * @return 返回是否找到关键值的布尔值
+	 */
+	public static boolean FindTheKey(int[][] inputArray,int key)
+	{
+		//输入判断
+		if (inputArray==null || inputArray.length==0 )
+		{
+			return false;
+		}
+		int minRow=0;
+		int maxLine=inputArray[0].length-1;
+		while(minRow<inputArray.length&& maxLine>=0)//循环条件
+		{
+			if (key<inputArray[minRow][maxLine])//比右上角的数小
+			{
+				maxLine--;
+			}
+			else if (key>inputArray[minRow][maxLine])//比右上角的数大
+			{
+				minRow++;
+			}
+			else//相等
+			{
+				return true;
+			}
+		}
+		return false;	//没有返回true，说明没有找到，返回false
+	}
+	
+	
+}
