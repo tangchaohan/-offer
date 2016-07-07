@@ -1,0 +1,62 @@
+/**
+ * 
+ * @author Tang
+ *面试题4：替换空格
+ */
+
+import java.util.*;
+public class InterviewQuestion4
+{
+
+	public static void main(String[] args)
+	{
+		String test="sffa fdfsfs wrewrw qqq eee rr";
+		String replaceString=ReplaceBlankOfString(test);
+		String testString=ReplaceBlankOfString(null);
+		System.out.println(replaceString);
+		System.out.println(testString);
+	}
+	
+	/**
+	 * 替换字符串中的每个空格
+	 * @param inputString
+	 * @return 替换后的字符串
+	 */
+	public  static String ReplaceBlankOfString(String inputString)
+	{ 
+		if (inputString==null)//输入判断
+		{
+			return inputString;
+		} 
+		char[] stringArray=inputString.toCharArray();//转换成字符数组
+		int blankCount=0;
+		for(int i=0;i<stringArray.length;i++)//统计空格的个数
+		{
+			if (stringArray[i]==' ')
+			{
+				blankCount++;
+			}
+		}
+		int newStringLength=stringArray.length+2*blankCount;
+		char[] replaceArray=new char[newStringLength];
+		int oldPointer=stringArray.length-1;
+		int newPointer=newStringLength-1;
+		while (oldPointer>=0 && newPointer>=oldPointer)
+		{
+			if (stringArray[oldPointer]==' ')
+			{
+				replaceArray[newPointer--]='0';
+				replaceArray[newPointer--]='2';
+				replaceArray[newPointer--]='%';
+				oldPointer--;
+			}
+			else
+			{
+				replaceArray[newPointer--]=stringArray[oldPointer--];
+			}
+		}
+		return new String(replaceArray);
+		
+	}
+
+}
