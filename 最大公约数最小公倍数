@@ -1,0 +1,42 @@
+计算两个正整数的最大公约数和最小公倍数（Java）
+import java.util.Scanner;  
+  
+public final class Demo {  
+  
+    // 功能：获取两个整数的最大公约数  
+    // 输入：两个整数  
+    // 返回：最大公约数  
+    public static long getMaxDivisor(long lFirstInput, long lSecondInput) {  
+        while (lSecondInput % lFirstInput != 0) {  
+            /** 
+             * 运用递归调用求余值作min 前min作max直求余值0止结束循环 
+             */  
+            int temp = (int) (lSecondInput % lFirstInput);  
+            lSecondInput = lFirstInput;  
+            lFirstInput = temp;  
+        }  
+        return lFirstInput;  
+    }  
+  
+    // 功能：获取两个整数的最小公倍数  
+    // 输入：两个整数  
+    // 返回：最小公倍数  
+    public static long getMinMultiple(long lFirstInput, long lSecondInput) {  
+  
+        return lFirstInput * lSecondInput / getMaxDivisor(lFirstInput, lSecondInput);  
+    }  
+  
+    public static void main(String args[]) {  
+        int first, second;  
+        Scanner cin = new Scanner(System.in);  
+        System.out.println("int first:");  
+        first = cin.nextInt();  
+        System.out.println("int second:");  
+        second = cin.nextInt();  
+  
+        System.out.println(getMaxDivisor(first, second));  
+        System.out.println(getMinMultiple(first, second));  
+  
+    }  
+  
+}  
