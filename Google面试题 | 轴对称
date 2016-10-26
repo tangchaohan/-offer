@@ -1,0 +1,40 @@
+给定平面上的n个点，问是否存在一条平行于y轴的直线，使得这n个点相对于这条直线对称。
+是否存在一条直线使得这n个点关于这条直线对称？
+算法分析 
+因为对称轴一定平行于y轴，这看起来缩小了穷举范围（可是我们真的要穷举可能的对称轴吗？有实无限个可能点对称轴...）
+
+那么我们怎么找到那条对称轴？对称轴的特点就是每一个点都在另一边有一个对应的点。刷题君的第一想法是：最左边的点一定对应某个最右边的点，因此最左边的点和最右边的点的中点应该在对称轴上。当然还有很多其他的找对称轴的方法，比如求所有x坐标的平均值。
+
+找到了对称轴的位置，我们就可以通过HashMap判断是否每一个点都有对应的点，最后输出答案即可。
+
+时间复杂度为O(N)。
+
+public static boolean isSymmetrical(int[][] points)
+	{
+		int max=0;
+		int min=0;
+		HashMap<Integer, HashSet<Integer>> hashmap=new HashMap<>();
+		for(int i=0;i<points.length;i++)
+		{
+			max=Math.max(points[i][0], max);
+			min=Math.min(points[i][0], min);
+			if(!hashmap.containsKey(points[i][0]))
+			{
+				HashSet<Integer>hashSet=new HashSet<>();
+				hashSet.add(points[i][0]);
+				hashmap.put(points[i][1],hashSet);
+			}
+			else 
+			{
+				hashmap.get(points[i][1]).add(points[i][0]);
+			}
+		}
+		for(int j=0;j<points.length;j++)
+		{
+			if(!hashmap.containsKey(points[j][1])||!hashmap.get(points[j][1]).contains(max+min-points[j][0]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
